@@ -51,9 +51,13 @@ export class DashboardService {
       classCount,
       todayAttendance: {
         total: todayAttendance.length,
-        present: todayAttendance.filter(a => a.status === 'present').length,
-        absent: todayAttendance.filter(a => a.status === 'absent').length,
-        late: todayAttendance.filter(a => a.status === 'late').length,
+        ...todayAttendance.reduce(
+          (acc, a) => {
+            acc[a.status] = (acc[a.status] || 0) + 1;
+            return acc;
+          },
+          { present: 0, absent: 0, late: 0 },
+        ),
       },
       upcomingExams,
     };
