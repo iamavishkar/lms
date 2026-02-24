@@ -1,39 +1,16 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
-import { RoleService } from './role.service';
-import { CreateRoleDto } from './dto/create-role.dto';
-import { UpdateRoleDto } from './dto/update-role.dto';
+import { Controller, UseGuards } from '@nestjs/common';
+import { Crud, CrudController } from '@nestjsx/crud';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { Role } from './role.entity';
+import { RoleDto } from './role.dto';
+import { RoleService } from './role.service';
 
-@ApiTags('roles')
-@ApiBearerAuth()
+@Crud({
+  model: { type: Role },
+  dto: { create: RoleDto, update: RoleDto },
+})
 @UseGuards(JwtAuthGuard)
 @Controller('roles')
-export class RoleController {
-  constructor(private readonly roleService: RoleService) {}
-
-  @Post()
-  create(@Body() createRoleDto: CreateRoleDto) {
-    return this.roleService.create(createRoleDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.roleService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.roleService.findOne(+id);
-  }
-
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
-    return this.roleService.update(+id, updateRoleDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.roleService.remove(+id);
-  }
+export class RoleController implements CrudController<Role> {
+  constructor(public service: RoleService) {}
 }

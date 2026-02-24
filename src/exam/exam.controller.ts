@@ -1,39 +1,16 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
-import { ExamService } from './exam.service';
-import { CreateExamDto } from './dto/create-exam.dto';
-import { UpdateExamDto } from './dto/update-exam.dto';
+import { Controller, UseGuards } from '@nestjs/common';
+import { Crud, CrudController } from '@nestjsx/crud';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { Exam } from './exam.entity';
+import { ExamDto } from './exam.dto';
+import { ExamService } from './exam.service';
 
-@ApiTags('exams')
-@ApiBearerAuth()
+@Crud({
+  model: { type: Exam },
+  dto: { create: ExamDto, update: ExamDto },
+})
 @UseGuards(JwtAuthGuard)
 @Controller('exams')
-export class ExamController {
-  constructor(private readonly examService: ExamService) {}
-
-  @Post()
-  create(@Body() createExamDto: CreateExamDto) {
-    return this.examService.create(createExamDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.examService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.examService.findOne(+id);
-  }
-
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateExamDto: UpdateExamDto) {
-    return this.examService.update(+id, updateExamDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.examService.remove(+id);
-  }
+export class ExamController implements CrudController<Exam> {
+  constructor(public service: ExamService) {}
 }

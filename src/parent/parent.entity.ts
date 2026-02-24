@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from 'typeorm';
-import { User } from '../../user/entities/user.entity';
+import { User } from '../user/user.entity';
 
-@Entity('students')
-export class Student {
+@Entity('parents')
+export class Parent {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -13,17 +13,8 @@ export class Student {
   @JoinColumn({ name: 'userId' })
   user: User;
 
-  @Column({ unique: true })
-  enrollmentNumber: string;
-
   @Column({ nullable: true })
-  class: string;
-
-  @Column({ nullable: true, type: 'date' })
-  dateOfBirth: Date;
-
-  @Column({ nullable: true })
-  address: string;
+  occupation: string;
 
   @Column({ nullable: true })
   phoneNumber: string;

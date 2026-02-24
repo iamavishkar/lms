@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Student } from '../student/entities/student.entity';
-import { Teacher } from '../teacher/entities/teacher.entity';
-import { Class } from '../class/entities/class.entity';
-import { Attendance } from '../attendance/entities/attendance.entity';
-import { Exam } from '../exam/entities/exam.entity';
+import { Student } from '../student/student.entity';
+import { Teacher } from '../teacher/teacher.entity';
+import { Class } from '../class/class.entity';
+import { Attendance } from '../attendance/attendance.entity';
+import { Exam } from '../exam/exam.entity';
 
 @Injectable()
 export class DashboardService {

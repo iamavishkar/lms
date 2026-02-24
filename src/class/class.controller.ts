@@ -1,39 +1,16 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
-import { ClassService } from './class.service';
-import { CreateClassDto } from './dto/create-class.dto';
-import { UpdateClassDto } from './dto/update-class.dto';
+import { Controller, UseGuards } from '@nestjs/common';
+import { Crud, CrudController } from '@nestjsx/crud';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { Class } from './class.entity';
+import { ClassDto } from './class.dto';
+import { ClassService } from './class.service';
 
-@ApiTags('classes')
-@ApiBearerAuth()
+@Crud({
+  model: { type: Class },
+  dto: { create: ClassDto, update: ClassDto },
+})
 @UseGuards(JwtAuthGuard)
 @Controller('classes')
-export class ClassController {
-  constructor(private readonly classService: ClassService) {}
-
-  @Post()
-  create(@Body() createClassDto: CreateClassDto) {
-    return this.classService.create(createClassDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.classService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.classService.findOne(+id);
-  }
-
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateClassDto: UpdateClassDto) {
-    return this.classService.update(+id, updateClassDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.classService.remove(+id);
-  }
+export class ClassController implements CrudController<Class> {
+  constructor(public service: ClassService) {}
 }

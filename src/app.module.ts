@@ -1,19 +1,21 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
-import { RoleModule } from './role/role.module';
-import { StudentModule } from './student/student.module';
-import { TeacherModule } from './teacher/teacher.module';
-import { ParentModule } from './parent/parent.module';
-import { ClassModule } from './class/class.module';
-import { SubjectModule } from './subject/subject.module';
-import { AttendanceModule } from './attendance/attendance.module';
-import { ExamModule } from './exam/exam.module';
-import { ResultModule } from './result/result.module';
-import { FileUploadModule } from './file-upload/file-upload.module';
-import { DashboardModule } from './dashboard/dashboard.module';
+import {
+  AuthModule,
+  UserModule,
+  RoleModule,
+  StudentModule,
+  TeacherModule,
+  ParentModule,
+  ClassModule,
+  SubjectModule,
+  AttendanceModule,
+  ExamModule,
+  ResultModule,
+  FileUploadModule,
+  DashboardModule,
+} from './module';
 
 @Module({
   imports: [

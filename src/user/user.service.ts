@@ -1,62 +1,52 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CrudRequest } from '@nestjsx/crud';
+import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
 import * as bcrypt from 'bcrypt';
-import { User } from './entities/user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './user.entity';
+import { UserDto } from './user.dto';
 
 @Injectable()
-export class UserService {
-  constructor(
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
-  ) {}
+export class UserService extends TypeOrmCrudService<User> {
+  constructor(@InjectRepository(User) repo: Repository<User>) {
+    super(repo);
+  }
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const existing = await this.userRepository.findOne({ where: { email: createUserDto.email } });
+  async findByEmail(email: string): Promise<User | undefined> {
+    return this.repo.findOne({ where: { email } });
+  }
+
+  async createOne(req: CrudRequest, dto: UserDto): Promise<User> {
+    const existing = await this.findByEmail(dto.email);
     if (existing) {
       throw new ConflictException('Email already exists');
     }
-    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-    const user = this.userRepository.create({ ...createUserDto, password: hashedPassword });
-    return this.userRepository.save(user);
+    const hashedPassword = await bcrypt.hash(dto.password, 10);
+    return super.createOne(req, { ...dto, password: hashedPassword });
   }
 
-  async findAll(): Promise<User[]> {
-    return this.userRepository.find();
-  }
-
-  async findOne(id: number): Promise<User> {
-    const user = await this.userRepository.findOne({ where: { id } });
-    if (!user) {
-      throw new NotFoundException(`User #${id} not found`);
-    }
-    return user;
-  }
-
-  async findByEmail(email: string): Promise<User> {
-    return this.userRepository.findOne({ where: { email } });
-  }
-
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-    await this.findOne(id);
-    if (updateUserDto.email) {
-      const existing = await this.userRepository.findOne({ where: { email: updateUserDto.email } });
+  async updateOne(req: CrudRequest, dto: UserDto): Promise<User> {
+    const data: UserDto = { ...dto };
+    if (data.email) {
+      const id: number = req.parsed.paramsFilter.find(f => f.field === 'id')?.value;
+      const existing = await this.findByEmail(data.email);
       if (existing && existing.id !== id) {
         throw new ConflictException('Email already exists');
       }
     }
-    const updateData = { ...updateUserDto };
-    if (updateData.password) {
-      updateData.password = await bcrypt.hash(updateData.password, 10);
+    if (data.password) {
+      data.password = await bcrypt.hash(data.password, 10);
     }
-    await this.userRepository.update(id, updateData);
-    return this.findOne(id);
+    return super.updateOne(req, data);
   }
 
-  async remove(id: number): Promise<void> {
-    const user = await this.findOne(id);
-    await this.userRepository.remove(user);
+  async register(dto: UserDto): Promise<User> {
+    const existing = await this.findByEmail(dto.email);
+    if (existing) {
+      throw new ConflictException('Email already exists');
+    }
+    const password = await bcrypt.hash(dto.password, 10);
+    return this.repo.save(this.repo.create({ ...dto, password }));
   }
 }

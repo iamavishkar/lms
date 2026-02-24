@@ -1,0 +1,13 @@
+export { AuthModule } from '../auth/auth.module';
+export { UserModule } from '../user/user.module';
+export { RoleModule } from '../role/role.module';
+export { StudentModule } from '../student/student.module';
+export { TeacherModule } from '../teacher/teacher.module';
+export { ParentModule } from '../parent/parent.module';
+export { ClassModule } from '../class/class.module';
+export { SubjectModule } from '../subject/subject.module';
+export { AttendanceModule } from '../attendance/attendance.module';
+export { ExamModule } from '../exam/exam.module';
+export { ResultModule } from '../result/result.module';
+export { FileUploadModule } from '../file-upload/file-upload.module';
+export { DashboardModule } from '../dashboard/dashboard.module';

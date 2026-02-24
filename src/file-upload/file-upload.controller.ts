@@ -1,21 +1,17 @@
 import { Controller, Post, UseInterceptors, UploadedFile, UseGuards, BadRequestException } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiTags, ApiBearerAuth, ApiConsumes } from '@nestjs/swagger';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { randomUUID } from 'crypto';
 import { FileUploadService } from './file-upload.service';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 
-@ApiTags('file-upload')
-@ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 @Controller('file-upload')
 export class FileUploadController {
   constructor(private readonly fileUploadService: FileUploadService) {}
 
   @Post('upload')
-  @ApiConsumes('multipart/form-data')
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
