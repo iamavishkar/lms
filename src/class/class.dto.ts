@@ -1,19 +1,19 @@
-import { IsString, IsNotEmpty, IsOptional, IsNumber } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsNumber } from "class-validator";
 
 export class ClassDto {
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: "name must be a string" })
+  @IsNotEmpty({ message: "name is required" })
   name: string;
 
-  @IsString()
+  @IsString({ message: "section must be a string" })
   @IsOptional()
   section?: string;
 
-  @IsString()
+  @IsString({ message: "academicYear must be a string" })
   @IsOptional()
   academicYear?: string;
 
-  @IsNumber()
+  @IsNumber({}, { message: "teacherId must be a valid number" })
   @IsOptional()
   teacherId?: number;
 }

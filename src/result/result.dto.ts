@@ -1,20 +1,20 @@
-import { IsNumber, IsString, IsOptional } from 'class-validator';
+import { IsNumber, IsString, IsOptional } from "class-validator";
 
 export class ResultDto {
-  @IsNumber()
+  @IsNumber({}, { message: "studentId must be a valid number" })
   studentId: number;
 
-  @IsNumber()
+  @IsNumber({}, { message: "examId must be a valid number" })
   examId: number;
 
-  @IsNumber()
+  @IsNumber({}, { message: "marksObtained must be a valid number" })
   marksObtained: number;
 
-  @IsString()
+  @IsString({ message: "grade must be a string" })
   @IsOptional()
   grade?: string;
 
-  @IsString()
+  @IsString({ message: "remarks must be a string" })
   @IsOptional()
   remarks?: string;
 }

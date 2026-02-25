@@ -1,21 +1,25 @@
-import { Controller, Post, UseInterceptors, UploadedFile, UseGuards, BadRequestException } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
-import { randomUUID } from 'crypto';
-import { FileUploadService } from './file-upload.service';
-import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import {
+  Controller,
+  Post,
+  UseInterceptors,
+  UploadedFile,
+  BadRequestException,
+} from "@nestjs/common";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { diskStorage } from "multer";
+import { extname } from "path";
+import { randomUUID } from "crypto";
+import { FileUploadService } from "./file-upload.service";
 
-@UseGuards(JwtAuthGuard)
-@Controller('file-upload')
+@Controller("file-upload")
 export class FileUploadController {
   constructor(private readonly fileUploadService: FileUploadService) {}
 
-  @Post('upload')
+  @Post("upload")
   @UseInterceptors(
-    FileInterceptor('file', {
+    FileInterceptor("file", {
       storage: diskStorage({
-        destination: './uploads',
+        destination: "./uploads",
         filename: (req, file, callback) => {
           callback(null, `${randomUUID()}${extname(file.originalname)}`);
         },
@@ -25,10 +29,10 @@ export class FileUploadController {
   )
   uploadFile(@UploadedFile() file: Express.Multer.File) {
     if (!file) {
-      throw new BadRequestException('No file provided');
+      throw new BadRequestException("No file provided");
     }
     if (!this.fileUploadService.validateFile(file)) {
-      throw new BadRequestException('Invalid file type');
+      throw new BadRequestException("Invalid file type");
     }
     return {
       filename: file.filename,

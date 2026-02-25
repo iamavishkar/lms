@@ -1,7 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { Exclude } from 'class-transformer';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
+import { Exclude } from "class-transformer";
 
-@Entity('users')
+@Entity("users")
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -19,7 +25,7 @@ export class User {
   @Column()
   lastName: string;
 
-  @Column({ default: 'student' })
+  @Column({ default: "student" })
   role: string;
 
   @CreateDateColumn()

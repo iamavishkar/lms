@@ -1,16 +1,21 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from 'typeorm';
-import { User } from '../user/user.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
+} from "typeorm";
+import { User } from "../user/user.entity";
 
-@Entity('parents')
+@Entity("parents")
 export class Parent {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  userId: number;
-
-  @OneToOne(() => User)
-  @JoinColumn({ name: 'userId' })
+  @OneToOne(() => User, { eager: true, nullable: false, onDelete: "CASCADE" })
+  @JoinColumn({ name: "user_id" })
   user: User;
 
   @Column({ nullable: true })

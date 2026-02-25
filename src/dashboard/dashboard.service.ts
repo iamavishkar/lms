@@ -1,11 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Student } from '../student/student.entity';
-import { Teacher } from '../teacher/teacher.entity';
-import { Class } from '../class/class.entity';
-import { Attendance } from '../attendance/attendance.entity';
-import { Exam } from '../exam/exam.entity';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Student } from "../student/student.entity";
+import { Teacher } from "../teacher/teacher.entity";
+import { Class } from "../class/class.entity";
+import { Attendance } from "../attendance/attendance.entity";
+import { Exam } from "../exam/exam.entity";
 
 @Injectable()
 export class DashboardService {
@@ -31,17 +31,17 @@ export class DashboardService {
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const todayStr = today.toISOString().split('T')[0];
+    const todayStr = today.toISOString().split("T")[0];
 
     const todayAttendance = await this.attendanceRepository
-      .createQueryBuilder('attendance')
-      .where('DATE(attendance.date) = :date', { date: todayStr })
+      .createQueryBuilder("attendance")
+      .where("DATE(attendance.date) = :date", { date: todayStr })
       .getMany();
 
     const upcomingExams = await this.examRepository
-      .createQueryBuilder('exam')
-      .where('exam.date >= :today', { today: todayStr })
-      .orderBy('exam.date', 'ASC')
+      .createQueryBuilder("exam")
+      .where("exam.date >= :today", { today: todayStr })
+      .orderBy("exam.date", "ASC")
       .limit(5)
       .getMany();
 

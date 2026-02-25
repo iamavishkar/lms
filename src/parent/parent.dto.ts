@@ -1,14 +1,14 @@
-import { IsNumber, IsString, IsOptional } from 'class-validator';
+import { IsNumber, IsString, IsOptional } from "class-validator";
 
 export class ParentDto {
-  @IsNumber()
+  @IsNumber({}, { message: "userId must be a valid number" })
   userId: number;
 
-  @IsString()
+  @IsString({ message: "occupation must be a string" })
   @IsOptional()
   occupation?: string;
 
-  @IsString()
+  @IsString({ message: "phoneNumber must be a string" })
   @IsOptional()
   phoneNumber?: string;
 }

@@ -1,31 +1,40 @@
-import { IsString, IsNotEmpty, IsOptional, IsNumber, IsDateString } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  IsNumber,
+  IsDateString,
+} from "class-validator";
 
 export class ExamDto {
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: "name must be a string" })
+  @IsNotEmpty({ message: "name is required" })
   name: string;
 
-  @IsString()
+  @IsString({ message: "examType must be a string" })
   @IsOptional()
   examType?: string;
 
-  @IsNumber()
+  @IsNumber({}, { message: "subjectId must be a valid number" })
   @IsOptional()
   subjectId?: number;
 
-  @IsNumber()
+  @IsNumber({}, { message: "classId must be a valid number" })
   @IsOptional()
   classId?: number;
 
-  @IsDateString()
+  @IsDateString(
+    {},
+    { message: "date must be a valid ISO 8601 date string (e.g. 2024-01-31)" },
+  )
   @IsOptional()
   date?: string;
 
-  @IsNumber()
+  @IsNumber({}, { message: "totalMarks must be a valid number" })
   @IsOptional()
   totalMarks?: number;
 
-  @IsNumber()
+  @IsNumber({}, { message: "duration must be a valid number" })
   @IsOptional()
   duration?: number;
 }

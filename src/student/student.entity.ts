@@ -1,31 +1,36 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from 'typeorm';
-import { User } from '../user/user.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
+} from "typeorm";
+import { User } from "../user/user.entity";
 
-@Entity('students')
+@Entity("students")
 export class Student {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  userId: number;
-
-  @OneToOne(() => User)
-  @JoinColumn({ name: 'userId' })
+  @OneToOne(() => User, { eager: true, nullable: false, onDelete: "CASCADE" })
+  @JoinColumn({ name: "user_id" })
   user: User;
 
   @Column({ unique: true })
   enrollmentNumber: string;
 
-  @Column({ nullable: true })
+  @Column()
   class: string;
 
-  @Column({ nullable: true, type: 'date' })
+  @Column({ type: "date" })
   dateOfBirth: Date;
 
-  @Column({ nullable: true })
+  @Column()
   address: string;
 
-  @Column({ nullable: true })
+  @Column()
   phoneNumber: string;
 
   @CreateDateColumn()

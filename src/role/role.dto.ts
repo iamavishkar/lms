@@ -1,11 +1,11 @@
-import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional } from "class-validator";
 
 export class RoleDto {
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: "name must be a string" })
+  @IsNotEmpty({ message: "name is required" })
   name: string;
 
-  @IsString()
+  @IsString({ message: "description must be a string" })
   @IsOptional()
   description?: string;
 }

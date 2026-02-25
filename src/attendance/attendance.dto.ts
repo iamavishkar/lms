@@ -1,19 +1,30 @@
-import { IsNumber, IsString, IsOptional, IsDateString, IsEnum } from 'class-validator';
+import {
+  IsNumber,
+  IsString,
+  IsOptional,
+  IsDateString,
+  IsEnum,
+} from "class-validator";
 
 export class AttendanceDto {
-  @IsNumber()
+  @IsNumber({}, { message: "studentId must be a valid number" })
   studentId: number;
 
-  @IsNumber()
+  @IsNumber({}, { message: "classId must be a valid number" })
   classId: number;
 
-  @IsDateString()
+  @IsDateString(
+    {},
+    { message: "date must be a valid ISO 8601 date string (e.g. 2024-01-31)" },
+  )
   date: string;
 
-  @IsEnum(['present', 'absent', 'late'])
+  @IsEnum(["present", "absent", "late"], {
+    message: "status must be one of: present, absent, late",
+  })
   status: string;
 
-  @IsString()
+  @IsString({ message: "remarks must be a string" })
   @IsOptional()
   remarks?: string;
 }

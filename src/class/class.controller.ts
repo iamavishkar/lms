@@ -1,16 +1,14 @@
-import { Controller, UseGuards } from '@nestjs/common';
-import { Crud, CrudController } from '@nestjsx/crud';
-import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
-import { Class } from './class.entity';
-import { ClassDto } from './class.dto';
-import { ClassService } from './class.service';
+import { Controller } from "@nestjs/common";
+import { Crud } from "@nestjsx/crud";
+import { Class } from "./class.entity";
+import { ClassDto } from "./class.dto";
+import { ClassService } from "./class.service";
 
 @Crud({
   model: { type: Class },
   dto: { create: ClassDto, update: ClassDto },
 })
-@UseGuards(JwtAuthGuard)
-@Controller('classes')
-export class ClassController implements CrudController<Class> {
+@Controller("classes")
+export class ClassController {
   constructor(public service: ClassService) {}
 }

@@ -1,6 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
-@Entity('exams')
+@Entity("exams")
 export class Exam {
   @PrimaryGeneratedColumn()
   id: number;
@@ -17,7 +23,7 @@ export class Exam {
   @Column({ nullable: true })
   classId: number;
 
-  @Column({ nullable: true, type: 'date' })
+  @Column({ nullable: true, type: "date" })
   date: Date;
 
   @Column({ nullable: true })

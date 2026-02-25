@@ -1,16 +1,21 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from 'typeorm';
-import { User } from '../user/user.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
+} from "typeorm";
+import { User } from "../user/user.entity";
 
-@Entity('teachers')
+@Entity("teachers")
 export class Teacher {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  userId: number;
-
-  @OneToOne(() => User)
-  @JoinColumn({ name: 'userId' })
+  @OneToOne(() => User, { eager: true, nullable: false, onDelete: "CASCADE" })
+  @JoinColumn({ name: "user_id" })
   user: User;
 
   @Column({ unique: true })
@@ -22,7 +27,7 @@ export class Teacher {
   @Column({ nullable: true })
   qualifications: string;
 
-  @Column({ nullable: true, type: 'date' })
+  @Column({ nullable: true, type: "date" })
   joiningDate: Date;
 
   @CreateDateColumn()
