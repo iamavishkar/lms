@@ -1,3 +1,4 @@
+import { AttendanceStatusEnum } from "src/common/enums/attendance.enum";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -22,10 +23,10 @@ export class Attendance {
 
   @Column({
     type: "enum",
-    enum: ["present", "absent", "late"],
-    default: "present",
+    enum: AttendanceStatusEnum,
+    default: AttendanceStatusEnum.PRESENT,
   })
-  status: string;
+  status: AttendanceStatusEnum;
 
   @Column({ nullable: true })
   remarks: string;

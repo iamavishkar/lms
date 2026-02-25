@@ -5,6 +5,7 @@ import {
   IsDateString,
   IsEnum,
 } from "class-validator";
+import { AttendanceStatusEnum } from "src/common/enums/attendance.enum";
 
 export class AttendanceDto {
   @IsNumber({}, { message: "studentId must be a valid number" })
@@ -19,10 +20,10 @@ export class AttendanceDto {
   )
   date: string;
 
-  @IsEnum(["present", "absent", "late"], {
-    message: "status must be one of: present, absent, late",
+  @IsEnum(AttendanceStatusEnum, {
+    message: `status must be one of the following: ${Object.values(AttendanceStatusEnum).join(", ")}`,
   })
-  status: string;
+  status: AttendanceStatusEnum;
 
   @IsString({ message: "remarks must be a string" })
   @IsOptional()
