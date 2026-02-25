@@ -20,7 +20,7 @@ import {
   ResultModule,
   FileUploadModule,
   DashboardModule,
-} from "./module";
+} from "./modules";
 
 @Module({
   imports: [

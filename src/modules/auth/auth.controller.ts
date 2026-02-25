@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from "@nestjs/common";
-import { Public } from "../common/decorators/public.decorator";
+import { Public } from "../../common/decorators/public.decorator";
 import { AuthService } from "./auth.service";
 import { LoginDto, RegisterDto } from "./auth.dto";
 
