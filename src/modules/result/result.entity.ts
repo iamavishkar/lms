@@ -4,9 +4,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-} from "typeorm";
+} from 'typeorm';
 
-@Entity("results")
+@Entity('results')
 export class Result {
   @PrimaryGeneratedColumn()
   id: number;
@@ -17,7 +17,7 @@ export class Result {
   @Column()
   examId: number;
 
-  @Column({ type: "decimal", precision: 5, scale: 2 })
+  @Column({ type: 'decimal', precision: 5, scale: 2 })
   marksObtained: number;
 
   @Column({ nullable: true })

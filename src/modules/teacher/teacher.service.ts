@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { DeepPartial, Repository } from "typeorm";
-import { CrudRequest } from "@nestjsx/crud";
-import { TypeOrmCrudService } from "@nestjsx/crud-typeorm";
-import { Teacher } from "./teacher.entity";
-import { User } from "../user/user.entity";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DeepPartial, Repository } from 'typeorm';
+import { CrudRequest } from '@nestjsx/crud';
+import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
+import { Teacher } from './teacher.entity';
+import { User } from '../user/user.entity';
 
 @Injectable()
 export class TeacherService extends TypeOrmCrudService<Teacher> {

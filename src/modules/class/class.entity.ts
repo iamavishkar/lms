@@ -4,9 +4,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-} from "typeorm";
+} from 'typeorm';
 
-@Entity("classes")
+@Entity('classes')
 export class Class {
   @PrimaryGeneratedColumn()
   id: number;
