@@ -6,16 +6,16 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
-} from "typeorm";
-import { User } from "../user/user.entity";
+} from 'typeorm';
+import { User } from '../user/user.entity';
 
-@Entity("students")
+@Entity('students')
 export class Student {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => User, { eager: true, nullable: false, onDelete: "CASCADE" })
-  @JoinColumn({ name: "user_id" })
+  @OneToOne(() => User, { eager: true, nullable: false, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @Column({ unique: true })
@@ -24,7 +24,7 @@ export class Student {
   @Column()
   class: string;
 
-  @Column({ type: "date" })
+  @Column({ type: 'date' })
   dateOfBirth: Date;
 
   @Column()

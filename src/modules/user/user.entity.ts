@@ -4,10 +4,13 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-} from "typeorm";
-import { Exclude } from "class-transformer";
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Exclude } from 'class-transformer';
+import { Role } from '../role/role.entity';
 
-@Entity("users")
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -25,8 +28,12 @@ export class User {
   @Column()
   lastName: string;
 
-  @Column({ default: "student" })
-  role: string;
+  @Column({ nullable: true })
+  roleId: number;
+
+  @ManyToOne(() => Role, (role) => role.users, { eager: true, nullable: true })
+  @JoinColumn({ name: 'roleId' })
+  role: Role;
 
   @CreateDateColumn()
   createdAt: Date;

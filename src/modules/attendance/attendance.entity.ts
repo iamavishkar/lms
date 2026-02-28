@@ -1,13 +1,13 @@
-import { AttendanceStatusEnum } from "src/common/enums/attendance.enum";
+import { AttendanceStatusEnum } from 'src/common/enums/attendance.enum';
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-} from "typeorm";
+} from 'typeorm';
 
-@Entity("attendance")
+@Entity('attendance')
 export class Attendance {
   @PrimaryGeneratedColumn()
   id: number;
@@ -18,11 +18,11 @@ export class Attendance {
   @Column()
   classId: number;
 
-  @Column({ type: "date" })
+  @Column({ type: 'date' })
   date: Date;
 
   @Column({
-    type: "enum",
+    type: 'enum',
     enum: AttendanceStatusEnum,
     default: AttendanceStatusEnum.PRESENT,
   })
