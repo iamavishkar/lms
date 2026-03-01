@@ -10,3 +10,7 @@ export { AttendanceModule } from './attendance/attendance.module';
 export { ExamModule } from './exam/exam.module';
 export { ResultModule } from './result/result.module';
 export { DashboardModule } from './dashboard/dashboard.module';
+export { TermModule } from './term/term.module';
+export { EnrollmentModule } from './enrollment/enrollment.module';
+export { ParentStudentModule } from './parent-student/parent-student.module';
+export { CoordinatorModule } from './coordinator/coordinator.module';

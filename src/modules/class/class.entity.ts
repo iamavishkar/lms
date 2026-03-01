@@ -4,7 +4,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
+  ManyToOne,
   JoinColumn,
 } from 'typeorm';
 import { Teacher } from '../teacher/teacher.entity';
@@ -23,11 +23,10 @@ export class Class {
   @Column({ nullable: true })
   academicYear: string;
 
-  @OneToOne(() => Teacher, {
-    eager: true,
-    nullable: false,
-    onDelete: 'CASCADE',
-  })
+  @Column({ nullable: true })
+  teacherId: number;
+
+  @ManyToOne(() => Teacher, { eager: true, nullable: true })
   @JoinColumn({ name: 'teacherId' })
   teacher: Teacher;
 

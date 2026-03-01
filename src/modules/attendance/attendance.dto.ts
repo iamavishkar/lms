@@ -14,6 +14,10 @@ export class AttendanceDto {
   @IsNumber({}, { message: 'classId must be a valid number' })
   classId: number;
 
+  @IsNumber({}, { message: 'subjectId must be a valid number' })
+  @IsOptional()
+  subjectId?: number;
+
   @IsDateString(
     {},
     { message: 'date must be a valid ISO 8601 date string (e.g. 2024-01-31)' },

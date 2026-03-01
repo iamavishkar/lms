@@ -6,6 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { ClassSerializerInterceptor } from '@nestjs/common';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
+import { RolesGuard } from './common/guards/roles.guard';
 import {
   AuthModule,
   UserModule,
@@ -19,6 +20,10 @@ import {
   ExamModule,
   ResultModule,
   DashboardModule,
+  TermModule,
+  EnrollmentModule,
+  ParentStudentModule,
+  CoordinatorModule,
 } from './modules';
 
 @Module({
@@ -58,6 +63,10 @@ import {
     ExamModule,
     ResultModule,
     DashboardModule,
+    TermModule,
+    EnrollmentModule,
+    ParentStudentModule,
+    CoordinatorModule,
   ],
   providers: [
     {
@@ -67,6 +76,10 @@ import {
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
     {
       provide: APP_INTERCEPTOR,

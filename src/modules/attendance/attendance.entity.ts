@@ -5,7 +5,12 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+import { Student } from '../student/student.entity';
+import { Class } from '../class/class.entity';
+import { Subject } from '../subject/subject.entity';
 
 @Entity('attendance')
 export class Attendance {
@@ -15,8 +20,23 @@ export class Attendance {
   @Column()
   studentId: number;
 
+  @ManyToOne(() => Student, { eager: true })
+  @JoinColumn({ name: 'studentId' })
+  student: Student;
+
   @Column()
   classId: number;
+
+  @ManyToOne(() => Class, { eager: true })
+  @JoinColumn({ name: 'classId' })
+  class: Class;
+
+  @Column({ nullable: true })
+  subjectId: number;
+
+  @ManyToOne(() => Subject, { eager: true, nullable: true })
+  @JoinColumn({ name: 'subjectId' })
+  subject: Subject;
 
   @Column({ type: 'date' })
   date: Date;

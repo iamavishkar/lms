@@ -23,6 +23,10 @@ export class ExamDto {
   @IsOptional()
   classId?: number;
 
+  @IsNumber({}, { message: 'termId must be a valid number' })
+  @IsOptional()
+  termId?: number;
+
   @IsDateString(
     {},
     { message: 'date must be a valid ISO 8601 date string (e.g. 2024-01-31)' },
