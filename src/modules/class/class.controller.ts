@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { Crud } from '@nestjsx/crud';
+import { Crud } from '@dataui/crud';
 import { Class } from './class.entity';
 import { ClassDto } from './class.dto';
 import { ClassService } from './class.service';

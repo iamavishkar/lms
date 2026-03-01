@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { Crud } from '@nestjsx/crud';
+import { Crud } from '@dataui/crud';
 import { Role } from './role.entity';
 import { RoleDto } from './role.dto';
 import { RoleService } from './role.service';

@@ -4,18 +4,28 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
+import { Student } from '../student/student.entity';
+import { Exam } from '../exam/exam.entity';
 
 @Entity('results')
 export class Result {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  studentId: number;
+  @OneToOne(() => Student, {
+    eager: true,
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'studentId' })
+  student: Student;
 
-  @Column()
-  examId: number;
+  @OneToOne(() => Exam, { eager: true, nullable: false, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'examId' })
+  exam: Exam;
 
   @Column({ type: 'decimal', precision: 5, scale: 2 })
   marksObtained: number;

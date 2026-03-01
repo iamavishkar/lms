@@ -1,8 +1,7 @@
 import { Injectable, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CrudRequest } from '@nestjsx/crud';
-import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
+import { TypeOrmCrudService } from '@dataui/crud-typeorm';
 import * as bcrypt from 'bcrypt';
 import { User } from './user.entity';
 import { UserDto } from './user.dto';
@@ -17,30 +16,15 @@ export class UserService extends TypeOrmCrudService<User> {
     return this.repo.findOne({ where: { email } });
   }
 
-  async createOne(req: CrudRequest, dto: UserDto): Promise<User> {
+  async save(dto: UserDto): Promise<User> {
     const existing = await this.findByEmail(dto.email);
     if (existing) {
       throw new ConflictException('Email already exists');
     }
-    const hashedPassword = await bcrypt.hash(dto.password, 10);
-    return super.createOne(req, { ...dto, password: hashedPassword });
-  }
-
-  async updateOne(req: CrudRequest, dto: UserDto): Promise<User> {
-    const data: UserDto = { ...dto };
-    if (data.email) {
-      const id: number = req.parsed.paramsFilter.find(
-        (f) => f.field === 'id',
-      )?.value;
-      const existing = await this.findByEmail(data.email);
-      if (existing && existing.id !== id) {
-        throw new ConflictException('Email already exists');
-      }
+    if (!dto.password) {
+      dto.password = await bcrypt.hash(dto.password, 10);
     }
-    if (data.password) {
-      data.password = await bcrypt.hash(data.password, 10);
-    }
-    return super.updateOne(req, data);
+    return this.repo.save(dto);
   }
 
   async register(dto: UserDto): Promise<User> {

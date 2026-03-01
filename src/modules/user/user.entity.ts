@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToOne,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { Role } from '../role/role.entity';
@@ -28,10 +29,7 @@ export class User {
   @Column()
   lastName: string;
 
-  @Column({ nullable: true })
-  roleId: number;
-
-  @ManyToOne(() => Role, (role) => role.users, { eager: true, nullable: true })
+  @OneToOne(() => Role, { eager: true, nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'roleId' })
   role: Role;
 

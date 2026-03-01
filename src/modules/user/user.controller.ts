@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { Crud } from '@nestjsx/crud';
+import { Crud } from '@dataui/crud';
 import { User } from './user.entity';
 import { UserDto } from './user.dto';
 import { UserService } from './user.service';

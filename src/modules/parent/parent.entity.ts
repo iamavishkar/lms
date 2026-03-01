@@ -15,7 +15,7 @@ export class Parent {
   id: number;
 
   @OneToOne(() => User, { eager: true, nullable: false, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'userId' })
   user: User;
 
   @Column({ nullable: true })

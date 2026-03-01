@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { Crud } from '@nestjsx/crud';
+import { Crud } from '@dataui/crud';
 import { Attendance } from './attendance.entity';
 import { AttendanceDto } from './attendance.dto';
 import { AttendanceService } from './attendance.service';
