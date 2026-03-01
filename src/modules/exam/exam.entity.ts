@@ -4,11 +4,12 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
+  ManyToOne,
   JoinColumn,
 } from 'typeorm';
 import { Subject } from '../subject/subject.entity';
 import { Class } from '../class/class.entity';
+import { Term } from '../term/term.entity';
 
 @Entity('exams')
 export class Exam {
@@ -21,17 +22,26 @@ export class Exam {
   @Column({ nullable: true })
   type: string;
 
-  @OneToOne(() => Subject, {
-    eager: true,
-    nullable: false,
-    onDelete: 'CASCADE',
-  })
+  @Column({ nullable: true })
+  subjectId: number;
+
+  @ManyToOne(() => Subject, { eager: true, nullable: true })
   @JoinColumn({ name: 'subjectId' })
   subject: Subject;
 
-  @OneToOne(() => Class, { eager: true, nullable: false, onDelete: 'CASCADE' })
+  @Column({ nullable: true })
+  classId: number;
+
+  @ManyToOne(() => Class, { eager: true, nullable: true })
   @JoinColumn({ name: 'classId' })
   class: Class;
+
+  @Column({ nullable: true })
+  termId: number;
+
+  @ManyToOne(() => Term, { eager: true, nullable: true })
+  @JoinColumn({ name: 'termId' })
+  term: Term;
 
   @Column({ nullable: true, type: 'date' })
   date: Date;

@@ -4,7 +4,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
+  ManyToOne,
   JoinColumn,
 } from 'typeorm';
 import { Student } from '../student/student.entity';
@@ -15,15 +15,17 @@ export class Result {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => Student, {
-    eager: true,
-    nullable: false,
-    onDelete: 'CASCADE',
-  })
+  @Column()
+  studentId: number;
+
+  @ManyToOne(() => Student, { eager: true })
   @JoinColumn({ name: 'studentId' })
   student: Student;
 
-  @OneToOne(() => Exam, { eager: true, nullable: false, onDelete: 'CASCADE' })
+  @Column()
+  examId: number;
+
+  @ManyToOne(() => Exam, { eager: true })
   @JoinColumn({ name: 'examId' })
   exam: Exam;
 
